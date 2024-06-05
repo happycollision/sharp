@@ -5,6 +5,7 @@
 
 const path = require('path');
 const sharp = require('../../');
+const fs = require('fs');
 const maxColourDistance = require('../../lib/sharp')._maxColourDistance;
 
 // Helpers
@@ -183,11 +184,37 @@ module.exports = {
           }
         }
 
-        if (distance > options.threshold) {
-          return callback(new Error('Expected maximum similarity distance: ' + options.threshold + '. Actual: ' + distance + '.'));
+        const isFile = typeof expectedImage === 'string' && fs.existsSync(expectedImage);
+
+        function fail () {
+          const err = new Error('Expected maximum similarity distance: ' + options.threshold + '. Actual: ' + distance + '.');
+          if (!isFile) return callback(err);
+
+          sharp(actualImage).toFile(getActualFilePath(), function () {
+            return callback(err);
+          });
         }
 
-        callback();
+        function succeed () {
+          if (!isFile) return callback();
+
+          if (!fs.existsSync(getActualFilePath())) return callback();
+
+          fs.unlink(getActualFilePath(), function () {
+            return callback();
+          });
+        }
+
+        function getActualFilePath () {
+          const newExt = path.extname(expectedImage).replace('.', '.actual.');
+          return expectedImage.replace(path.extname(expectedImage), newExt);
+        }
+
+        if (distance > options.threshold) {
+          fail();
+        } else {
+          succeed();
+        }
       });
     });
   },
