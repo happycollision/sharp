@@ -943,6 +943,8 @@ declare namespace sharp {
         create?: Create | undefined;
         /** Describes a new text image to be created. */
         text?: CreateText | undefined;
+        /** Treat the image as if the orientation has already been applied before any Sharp processing */
+        useInitialOrientation?: boolean | undefined;
     }
 
     interface CacheOptions {

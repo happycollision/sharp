@@ -162,6 +162,8 @@ namespace sharp {
     descriptor->access = AttrAsBool(input, "sequentialRead") ? VIPS_ACCESS_SEQUENTIAL : VIPS_ACCESS_RANDOM;
     // Remove safety features and allow unlimited input
     descriptor->unlimited = AttrAsBool(input, "unlimited");
+    // Use the EXIF orientation as a starting point for all flips and rotations
+    descriptor->useInitialOrientation = AttrAsBool(input, "useInitialOrientation");
     return descriptor;
   }
 
