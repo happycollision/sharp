@@ -70,10 +70,15 @@ class PipelineWorker : public Napi::AsyncWorker {
       // Calculate angle of rotation
       VipsAngle rotation = VIPS_ANGLE_D0;
       VipsAngle autoRotation = VIPS_ANGLE_D0;
+      VipsAngle initRotation = VIPS_ANGLE_D0;
       bool autoFlip = false;
+      bool initFlip = false;
       bool autoFlop = false;
+      bool initFlop = false;
 
-      if (baton->useExifOrientation) {
+      bool doInitOrientationOnly = baton->input->useInitialOrientation && baton->angle == VIPS_ANGLE_D0 && !baton->flip && !baton->flop && baton->rotationAngle == 0.0;
+      
+      if (baton->useExifOrientation || doInitOrientationOnly) {
         // Rotate and flip image according to Exif orientation
         std::tie(autoRotation, autoFlip, autoFlop) = CalculateExifRotationAndFlip(sharp::ExifOrientation(image));
         image = sharp::RemoveExifOrientation(image);
@@ -81,19 +86,29 @@ class PipelineWorker : public Napi::AsyncWorker {
         rotation = CalculateAngleRotation(baton->angle);
       }
 
+      if (baton->input->useInitialOrientation && !doInitOrientationOnly) {
+        // Rotate and flip image according to initial orientation, allowing further changes later.
+        std::tie(initRotation, initFlip, initFlop) = CalculateExifRotationAndFlip(sharp::ExifOrientation(image));
+        image = sharp::RemoveExifOrientation(image);
+        rotation = AddVips(initRotation, rotation);
+      }
+
+
+      bool const couldStaySequential = rotation != VIPS_ANGLE_D0 ||
+        autoRotation != VIPS_ANGLE_D0 ||
+        autoFlip ||
+        initRotation != VIPS_ANGLE_D0 ||
+        initFlip ||
+        baton->flip;
+
       // Rotate pre-extract
       bool const shouldRotateBefore = baton->rotateBeforePreExtract &&
-        (rotation != VIPS_ANGLE_D0 || autoRotation != VIPS_ANGLE_D0 ||
-          autoFlip || baton->flip || autoFlop || baton->flop ||
-          baton->rotationAngle != 0.0);
+        (couldStaySequential ||
+        baton->rotationAngle != 0.0 || autoFlop || initFlop || baton->flop);
 
       if (shouldRotateBefore) {
-        image = sharp::StaySequential(image,
-          rotation != VIPS_ANGLE_D0 ||
-          autoRotation != VIPS_ANGLE_D0 ||
-          autoFlip ||
-          baton->flip ||
-          baton->rotationAngle != 0.0);
+        image = sharp::StaySequential(image, couldStaySequential ||
+        baton->rotationAngle != 0.0);
 
         if (autoRotation != VIPS_ANGLE_D0) {
           if (autoRotation != VIPS_ANGLE_D180) {
@@ -105,16 +120,22 @@ class PipelineWorker : public Napi::AsyncWorker {
         if (autoFlip) {
           image = image.flip(VIPS_DIRECTION_VERTICAL);
           autoFlip = false;
-        } else if (baton->flip) {
-          image = image.flip(VIPS_DIRECTION_VERTICAL);
+        } else if (baton->flip || initFlip) {
+          if (initFlip != baton->flip) {
+            image = image.flip(VIPS_DIRECTION_VERTICAL);
+          }
           baton->flip = false;
+          initFlip = false;
         }
         if (autoFlop) {
           image = image.flip(VIPS_DIRECTION_HORIZONTAL);
           autoFlop = false;
-        } else if (baton->flop) {
-          image = image.flip(VIPS_DIRECTION_HORIZONTAL);
+        } else if (baton->flop || initFlop) {
+          if (initFlop != baton->flop) {
+            image = image.flip(VIPS_DIRECTION_HORIZONTAL);
+          }
           baton->flop = false;
+          initFlop = false;
         }
         if (rotation != VIPS_ANGLE_D0) {
           if (rotation != VIPS_ANGLE_D180) {
@@ -127,7 +148,7 @@ class PipelineWorker : public Napi::AsyncWorker {
           MultiPageUnsupported(nPages, "Rotate");
           std::vector<double> background;
           std::tie(image, background) = sharp::ApplyAlpha(image, baton->rotationBackground, false);
-          image = image.rotate(baton->rotationAngle, VImage::option()->set("background", background)).copy_memory();
+          image = image.rotate(baton->rotationAngle + initRotation, VImage::option()->set("background", background)).copy_memory();
         }
       }
 
@@ -167,7 +188,7 @@ class PipelineWorker : public Napi::AsyncWorker {
       // height to ensure the behavior aligns with how it would have been if
       // the rotation had taken place *before* resizing.
       if (!baton->rotateBeforePreExtract &&
-        (autoRotation == VIPS_ANGLE_D90 || autoRotation == VIPS_ANGLE_D270)) {
+        (autoRotation == VIPS_ANGLE_D90 || autoRotation == VIPS_ANGLE_D270 || initRotation == VIPS_ANGLE_D90 || initRotation == VIPS_ANGLE_D270)) {
         std::swap(targetResizeWidth, targetResizeHeight);
       }
 
@@ -392,11 +413,7 @@ class PipelineWorker : public Napi::AsyncWorker {
           ->set("kernel", baton->kernel));
       }
 
-      image = sharp::StaySequential(image,
-        autoRotation != VIPS_ANGLE_D0 ||
-        baton->flip ||
-        autoFlip ||
-        rotation != VIPS_ANGLE_D0);
+      image = sharp::StaySequential(image, couldStaySequential);
       // Auto-rotate post-extract
       if (autoRotation != VIPS_ANGLE_D0) {
         if (autoRotation != VIPS_ANGLE_D180) {
@@ -405,11 +422,11 @@ class PipelineWorker : public Napi::AsyncWorker {
         image = image.rot(autoRotation);
       }
       // Mirror vertically (up-down) about the x-axis
-      if (baton->flip || autoFlip) {
+      if (baton->flip != initFlip || autoFlip) {
         image = image.flip(VIPS_DIRECTION_VERTICAL);
       }
       // Mirror horizontally (left-right) about the y-axis
-      if (baton->flop || autoFlop) {
+      if (baton->flop != initFlop || autoFlop) {
         image = image.flip(VIPS_DIRECTION_HORIZONTAL);
       }
       // Rotate post-extract 90-angle
@@ -517,7 +534,7 @@ class PipelineWorker : public Napi::AsyncWorker {
         image = sharp::StaySequential(image);
         std::vector<double> background;
         std::tie(image, background) = sharp::ApplyAlpha(image, baton->rotationBackground, shouldPremultiplyAlpha);
-        image = image.rotate(baton->rotationAngle, VImage::option()->set("background", background));
+        image = image.rotate(baton->rotationAngle + initRotation, VImage::option()->set("background", background));
       }
 
       // Post extraction
@@ -1378,6 +1395,28 @@ class PipelineWorker : public Napi::AsyncWorker {
       case 270: return VIPS_ANGLE_D270;
     }
     return VIPS_ANGLE_D0;
+  }
+
+  /*
+    Add any two VipsAngle values.
+  */
+  VipsAngle
+  AddVips(VipsAngle vips1, VipsAngle vips2) {
+    int angle1 = 0;
+    int angle2 = 0;
+    switch (vips1) {
+      case VIPS_ANGLE_D90: angle1 = 90; break;
+      case VIPS_ANGLE_D180: angle1 = 180; break;
+      case VIPS_ANGLE_D270: angle1 = 270; break;
+      default: break;
+    }
+    switch (vips2) {
+      case VIPS_ANGLE_D90: angle2 = 90; break;
+      case VIPS_ANGLE_D180: angle2 = 180; break;
+      case VIPS_ANGLE_D270: angle2 = 270; break;
+      default: break;
+    }
+    return CalculateAngleRotation(angle1 + angle2);
   }
 
   /*
