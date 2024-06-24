@@ -617,13 +617,13 @@ describe('With `useInitialOrientation`', function () {
           const img = sharp(input, { useInitialOrientation: true });
           flip && img.flip();
           flop && img.flop();
-            
+
           img.toBuffer(function (err, data, info) {
-              if (err) throw err;
-              assert.strictEqual(info.width, inputWidth);
-              assert.strictEqual(info.height, inputHeight);
-              fixtures.assertSimilar(expectedOutput, data, done);
-            });
+            if (err) throw err;
+            assert.strictEqual(info.width, inputWidth);
+            assert.strictEqual(info.height, inputHeight);
+            fixtures.assertSimilar(expectedOutput, data, done);
+          });
         });
       });
     });
