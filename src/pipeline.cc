@@ -81,6 +81,22 @@ class PipelineWorker : public Napi::AsyncWorker {
         image = sharp::RemoveExifOrientation(image);
       } else {
         rotation = CalculateAngleRotation(baton->angle);
+        
+        if (baton->input->useInitialOrientation) {
+          bool initFlip = false;
+          bool initFlop = false;
+          VipsAngle initRotation = VIPS_ANGLE_D0;
+          std::tie(initRotation, initFlip, initFlop) = CalculateExifRotationAndFlip(sharp::ExifOrientation(image));
+
+
+          image = image.rot(initRotation);
+          if (initFlip) {
+            image = image.flip(VIPS_DIRECTION_VERTICAL);
+          }
+          if (initFlop) {
+            image = image.flip(VIPS_DIRECTION_HORIZONTAL);
+          }
+        }
       }
 
       // Rotate pre-extract
