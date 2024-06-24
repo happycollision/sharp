@@ -2,9 +2,9 @@
   "stats": {
     "suites": 105,
     "tests": 1326,
-    "passes": 1214,
+    "passes": 1228,
     "pending": 0,
-    "failures": 112
+    "failures": 98
   },
   "failures": [
     {
@@ -32,17 +32,6 @@
     {
       "title": "with EXIF 2, Landscape img: flop",
       "fullTitle": "With `useInitialOrientation` with EXIF 2, Landscape img: flop",
-      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
-      "currentRetry": 0,
-      "err": {
-        "stack": "Error: Expected maximum similarity distance: 5. Actual: 28.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
-        "message": "Expected maximum similarity distance: 5. Actual: 28.",
-        "__type": "Error"
-      }
-    },
-    {
-      "title": "with EXIF 2, Landscape img: no added rotation",
-      "fullTitle": "With `useInitialOrientation` with EXIF 2, Landscape img: no added rotation",
       "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
       "currentRetry": 0,
       "err": {
@@ -129,17 +118,6 @@
       }
     },
     {
-      "title": "with EXIF 2, Portrait img: no added rotation",
-      "fullTitle": "With `useInitialOrientation` with EXIF 2, Portrait img: no added rotation",
-      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
-      "currentRetry": 0,
-      "err": {
-        "stack": "Error: Expected maximum similarity distance: 5. Actual: 20.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
-        "message": "Expected maximum similarity distance: 5. Actual: 20.",
-        "__type": "Error"
-      }
-    },
-    {
       "title": "with EXIF 2, Portrait img: rotate again 180 deg",
       "fullTitle": "With `useInitialOrientation` with EXIF 2, Portrait img: rotate again 180 deg",
       "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
@@ -213,17 +191,6 @@
       "err": {
         "stack": "Error: Expected maximum similarity distance: 5. Actual: 30.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
         "message": "Expected maximum similarity distance: 5. Actual: 30.",
-        "__type": "Error"
-      }
-    },
-    {
-      "title": "with EXIF 3, Landscape img: no added rotation",
-      "fullTitle": "With `useInitialOrientation` with EXIF 3, Landscape img: no added rotation",
-      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
-      "currentRetry": 0,
-      "err": {
-        "stack": "Error: Expected maximum similarity distance: 5. Actual: 27.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
-        "message": "Expected maximum similarity distance: 5. Actual: 27.",
         "__type": "Error"
       }
     },
@@ -305,17 +272,6 @@
       }
     },
     {
-      "title": "with EXIF 3, Portrait img: no added rotation",
-      "fullTitle": "With `useInitialOrientation` with EXIF 3, Portrait img: no added rotation",
-      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
-      "currentRetry": 0,
-      "err": {
-        "stack": "Error: Expected maximum similarity distance: 5. Actual: 26.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
-        "message": "Expected maximum similarity distance: 5. Actual: 26.",
-        "__type": "Error"
-      }
-    },
-    {
       "title": "with EXIF 3, Portrait img: rotate again 180 deg",
       "fullTitle": "With `useInitialOrientation` with EXIF 3, Portrait img: rotate again 180 deg",
       "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
@@ -393,17 +349,6 @@
       }
     },
     {
-      "title": "with EXIF 4, Landscape img: no added rotation",
-      "fullTitle": "With `useInitialOrientation` with EXIF 4, Landscape img: no added rotation",
-      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
-      "currentRetry": 0,
-      "err": {
-        "stack": "Error: Expected maximum similarity distance: 5. Actual: 22.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
-        "message": "Expected maximum similarity distance: 5. Actual: 22.",
-        "__type": "Error"
-      }
-    },
-    {
       "title": "with EXIF 4, Landscape img: rotate again 180 deg",
       "fullTitle": "With `useInitialOrientation` with EXIF 4, Landscape img: rotate again 180 deg",
       "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
@@ -472,17 +417,6 @@
     {
       "title": "with EXIF 4, Portrait img: flop",
       "fullTitle": "With `useInitialOrientation` with EXIF 4, Portrait img: flop",
-      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
-      "currentRetry": 0,
-      "err": {
-        "stack": "Error: Expected maximum similarity distance: 5. Actual: 20.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
-        "message": "Expected maximum similarity distance: 5. Actual: 20.",
-        "__type": "Error"
-      }
-    },
-    {
-      "title": "with EXIF 4, Portrait img: no added rotation",
-      "fullTitle": "With `useInitialOrientation` with EXIF 4, Portrait img: no added rotation",
       "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
       "currentRetry": 0,
       "err": {
@@ -583,17 +517,6 @@
         "uncaught": true,
         "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n450 !== 600\n\n    at /Users/dondenton/GitProjects/sharp/test/unit/rotate.js:623:22\n    at Object.<anonymous> (lib/output.js:1474:11)",
         "message": "Expected values to be strictly equal:\n\n450 !== 600\n",
-        "__type": "Error"
-      }
-    },
-    {
-      "title": "with EXIF 5, Landscape img: no added rotation",
-      "fullTitle": "With `useInitialOrientation` with EXIF 5, Landscape img: no added rotation",
-      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
-      "currentRetry": 0,
-      "err": {
-        "stack": "Error: Expected maximum similarity distance: 5. Actual: 32.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
-        "message": "Expected maximum similarity distance: 5. Actual: 32.",
         "__type": "Error"
       }
     },
@@ -711,17 +634,6 @@
       }
     },
     {
-      "title": "with EXIF 5, Portrait img: no added rotation",
-      "fullTitle": "With `useInitialOrientation` with EXIF 5, Portrait img: no added rotation",
-      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
-      "currentRetry": 0,
-      "err": {
-        "stack": "Error: Expected maximum similarity distance: 5. Actual: 36.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
-        "message": "Expected maximum similarity distance: 5. Actual: 36.",
-        "__type": "Error"
-      }
-    },
-    {
       "title": "with EXIF 5, Portrait img: rotate again 180 deg",
       "fullTitle": "With `useInitialOrientation` with EXIF 5, Portrait img: rotate again 180 deg",
       "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
@@ -831,17 +743,6 @@
         "uncaught": true,
         "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n450 !== 600\n\n    at /Users/dondenton/GitProjects/sharp/test/unit/rotate.js:623:22\n    at Object.<anonymous> (lib/output.js:1474:11)",
         "message": "Expected values to be strictly equal:\n\n450 !== 600\n",
-        "__type": "Error"
-      }
-    },
-    {
-      "title": "with EXIF 6, Landscape img: no added rotation",
-      "fullTitle": "With `useInitialOrientation` with EXIF 6, Landscape img: no added rotation",
-      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
-      "currentRetry": 0,
-      "err": {
-        "stack": "Error: Expected maximum similarity distance: 5. Actual: 38.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
-        "message": "Expected maximum similarity distance: 5. Actual: 38.",
         "__type": "Error"
       }
     },
@@ -959,17 +860,6 @@
       }
     },
     {
-      "title": "with EXIF 6, Portrait img: no added rotation",
-      "fullTitle": "With `useInitialOrientation` with EXIF 6, Portrait img: no added rotation",
-      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
-      "currentRetry": 0,
-      "err": {
-        "stack": "Error: Expected maximum similarity distance: 5. Actual: 42.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
-        "message": "Expected maximum similarity distance: 5. Actual: 42.",
-        "__type": "Error"
-      }
-    },
-    {
       "title": "with EXIF 6, Portrait img: rotate again 180 deg",
       "fullTitle": "With `useInitialOrientation` with EXIF 6, Portrait img: rotate again 180 deg",
       "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
@@ -1079,17 +969,6 @@
         "uncaught": true,
         "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n450 !== 600\n\n    at /Users/dondenton/GitProjects/sharp/test/unit/rotate.js:623:22\n    at Object.<anonymous> (lib/output.js:1474:11)",
         "message": "Expected values to be strictly equal:\n\n450 !== 600\n",
-        "__type": "Error"
-      }
-    },
-    {
-      "title": "with EXIF 7, Landscape img: no added rotation",
-      "fullTitle": "With `useInitialOrientation` with EXIF 7, Landscape img: no added rotation",
-      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
-      "currentRetry": 0,
-      "err": {
-        "stack": "Error: Expected maximum similarity distance: 5. Actual: 25.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
-        "message": "Expected maximum similarity distance: 5. Actual: 25.",
         "__type": "Error"
       }
     },
@@ -1207,17 +1086,6 @@
       }
     },
     {
-      "title": "with EXIF 7, Portrait img: no added rotation",
-      "fullTitle": "With `useInitialOrientation` with EXIF 7, Portrait img: no added rotation",
-      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
-      "currentRetry": 0,
-      "err": {
-        "stack": "Error: Expected maximum similarity distance: 5. Actual: 37.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
-        "message": "Expected maximum similarity distance: 5. Actual: 37.",
-        "__type": "Error"
-      }
-    },
-    {
       "title": "with EXIF 7, Portrait img: rotate again 180 deg",
       "fullTitle": "With `useInitialOrientation` with EXIF 7, Portrait img: rotate again 180 deg",
       "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
@@ -1331,17 +1199,6 @@
       }
     },
     {
-      "title": "with EXIF 8, Landscape img: no added rotation",
-      "fullTitle": "With `useInitialOrientation` with EXIF 8, Landscape img: no added rotation",
-      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
-      "currentRetry": 0,
-      "err": {
-        "stack": "Error: Expected maximum similarity distance: 5. Actual: 27.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
-        "message": "Expected maximum similarity distance: 5. Actual: 27.",
-        "__type": "Error"
-      }
-    },
-    {
       "title": "with EXIF 8, Landscape img: rotate again 180 deg",
       "fullTitle": "With `useInitialOrientation` with EXIF 8, Landscape img: rotate again 180 deg",
       "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
@@ -1451,17 +1308,6 @@
         "uncaught": true,
         "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n600 !== 450\n\n    at /Users/dondenton/GitProjects/sharp/test/unit/rotate.js:623:22\n    at Object.<anonymous> (lib/output.js:1474:11)",
         "message": "Expected values to be strictly equal:\n\n600 !== 450\n",
-        "__type": "Error"
-      }
-    },
-    {
-      "title": "with EXIF 8, Portrait img: no added rotation",
-      "fullTitle": "With `useInitialOrientation` with EXIF 8, Portrait img: no added rotation",
-      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
-      "currentRetry": 0,
-      "err": {
-        "stack": "Error: Expected maximum similarity distance: 5. Actual: 34.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
-        "message": "Expected maximum similarity distance: 5. Actual: 34.",
         "__type": "Error"
       }
     },
