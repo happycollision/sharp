@@ -2,9 +2,87 @@
   "stats": {
     "suites": 105,
     "tests": 1326,
-    "passes": 1326,
+    "passes": 1321,
     "pending": 0,
-    "failures": 0
+    "failures": 5
   },
-  "failures": []
+  "failures": [
+    {
+      "title": "Include metadata in output, enabled via empty object",
+      "fullTitle": "Image metadata Include metadata in output, enabled via empty object",
+      "file": "/Users/dondenton/GitProjects/sharp/test/unit/metadata.js",
+      "currentRetry": 0,
+      "err": {
+        "generatedMessage": true,
+        "code": "ERR_ASSERTION",
+        "actual": "8",
+        "expected": "1",
+        "operator": "strictEqual",
+        "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n8 !== 1\n\n    at /Users/dondenton/GitProjects/sharp/test/unit/metadata.js:677:18",
+        "message": "Expected values to be strictly equal:\n\n8 !== 1\n",
+        "__type": "Error"
+      }
+    },
+    {
+      "title": "Keep EXIF metadata and add sRGB profile after a resize",
+      "fullTitle": "Image metadata Keep EXIF metadata and add sRGB profile after a resize",
+      "file": "/Users/dondenton/GitProjects/sharp/test/unit/metadata.js",
+      "currentRetry": 0,
+      "err": {
+        "generatedMessage": true,
+        "code": "ERR_ASSERTION",
+        "actual": "8",
+        "expected": "1",
+        "operator": "strictEqual",
+        "uncaught": true,
+        "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n8 !== 1\n\n    at /Users/dondenton/GitProjects/sharp/test/unit/metadata.js:536:18\n    at Object.<anonymous> (lib/input.js:513:11)",
+        "message": "Expected values to be strictly equal:\n\n8 !== 1\n",
+        "__type": "Error"
+      }
+    },
+    {
+      "title": "Flip, rotate and resize ordering",
+      "fullTitle": "Rotation Flip, rotate and resize ordering",
+      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
+      "currentRetry": 0,
+      "err": {
+        "generatedMessage": true,
+        "code": "ERR_ASSERTION",
+        "actual": "55",
+        "expected": "54",
+        "operator": "strictEqual",
+        "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n55 !== 54\n\n    at Context.<anonymous> (test/unit/rotate.js:522:12)",
+        "message": "Expected values to be strictly equal:\n\n55 !== 54\n",
+        "__type": "Error"
+      }
+    },
+    {
+      "title": "Input image has Orientation EXIF tag but do not rotate output",
+      "fullTitle": "Rotation Input image has Orientation EXIF tag but do not rotate output",
+      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
+      "currentRetry": 0,
+      "err": {
+        "generatedMessage": true,
+        "code": "ERR_ASSERTION",
+        "actual": "427",
+        "expected": "240",
+        "operator": "strictEqual",
+        "uncaught": true,
+        "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n427 !== 240\n\n    at /Users/dondenton/GitProjects/sharp/test/unit/rotate.js:255:16\n    at Object.<anonymous> (lib/output.js:1474:11)",
+        "message": "Expected values to be strictly equal:\n\n427 !== 240\n",
+        "__type": "Error"
+      }
+    },
+    {
+      "title": "Override EXIF Orientation tag metadata after auto-rotate",
+      "fullTitle": "Rotation Override EXIF Orientation tag metadata after auto-rotate",
+      "file": "/Users/dondenton/GitProjects/sharp/test/unit/rotate.js",
+      "currentRetry": 0,
+      "err": {
+        "stack": "Error: Expected maximum similarity distance: 5. Actual: 29.\n    at fail (test/fixtures/index.js:190:23)\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:214:11\n    at /Users/dondenton/GitProjects/sharp/test/fixtures/index.js:37:9\n    at Object.<anonymous> (lib/output.js:1474:11)",
+        "message": "Expected maximum similarity distance: 5. Actual: 29.",
+        "__type": "Error"
+      }
+    }
+  ]
 }
