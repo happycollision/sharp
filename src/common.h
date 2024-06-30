@@ -55,6 +55,7 @@ namespace sharp {
     int page;
     int level;
     int subifd;
+    bool useInitialOrientation;
     int createChannels;
     int createWidth;
     int createHeight;
@@ -94,6 +95,7 @@ namespace sharp {
       page(0),
       level(0),
       subifd(-1),
+      useInitialOrientation(false),
       createChannels(0),
       createWidth(0),
       createHeight(0),

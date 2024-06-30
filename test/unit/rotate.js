@@ -547,3 +547,57 @@ describe('Rotation', function () {
     assert.strictEqual(height, 6);
   });
 });
+
+describe('With `useInitialOrientation`', function () {
+  [1, 2, 3, 4, 5, 6, 7, 8].forEach(function (exifTag) {
+    ['Landscape', 'Portrait'].forEach(function (orientation) {
+      const input = fixtures[`inputJpgWith${orientation}Exif${exifTag}`];
+      const [inputWidth, inputHeight] = orientation === 'Landscape' ? [600, 450] : [450, 600];
+
+      it(`with EXIF ${exifTag}, ${orientation} img: no added rotation`, function (done) {
+        const expectedOutput = fixtures.expected(`out-rotate0-${orientation}-${exifTag}.jpg`);
+
+        sharp(input, { useInitialOrientation: true })
+          .toBuffer(function (err, data) {
+            if (err) throw err;
+            fixtures.assertSimilar(expectedOutput, data, done);
+          });
+      });
+
+      [90, 180, 270, 45].forEach(function (angle) {
+        const expectedOutput = fixtures.expected(`out-rotate${angle}-${orientation}-${exifTag}.jpg`);
+        it(`with EXIF ${exifTag}, ${orientation} img: rotate again ${angle} deg`, function (done) {
+          const [width, height] = angle === 45 ? [742, 742] : [inputWidth, inputHeight];
+          const [expectedWidth, expectedHeight] = angle % 180 === 0 ? [width, height] : [height, width];
+
+          sharp(input, { useInitialOrientation: true })
+            .rotate(angle)
+            .toBuffer(function (err, data, info) {
+              if (err) throw err;
+              assert.strictEqual(info.width, expectedWidth);
+              assert.strictEqual(info.height, expectedHeight);
+              fixtures.assertSimilar(expectedOutput, data, done);
+            });
+        });
+      });
+
+      [{ flip: true, flop: false }, { flip: false, flop: true }, { flip: true, flop: true }].forEach(function ({ flip, flop }) {
+        const flipFlop = [flip && 'flip', flop && 'flop'].filter(Boolean).join('-');
+        it(`with EXIF ${exifTag}, ${orientation} img: ${flipFlop}`, function (done) {
+          const expectedOutput = fixtures.expected(`out-${flipFlop}-${orientation}-${exifTag}.jpg`);
+
+          const img = sharp(input, { useInitialOrientation: true });
+          flip && img.flip();
+          flop && img.flop();
+
+          img.toBuffer(function (err, data, info) {
+            if (err) throw err;
+            assert.strictEqual(info.width, inputWidth);
+            assert.strictEqual(info.height, inputHeight);
+            fixtures.assertSimilar(expectedOutput, data, done);
+          });
+        });
+      });
+    });
+  });
+});
